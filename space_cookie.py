@@ -3,14 +3,14 @@
 Scrape for Monkish Space Cookie beer.
 
 Usage:
-  scrape_space_cookie.py
+  space_cookie.py
 
 Notification requires a ntfy.sh account and environment variable wit the topic name:
   NTFY_TOPIC 
 
 """
 __author__ = "Thomas Howard"
-__email__ = "t@thomas-howard.com"
+__email__ = "1@1homas.org"
 __license__ = "MIT - https://mit-license.org/"
 
 
@@ -36,7 +36,7 @@ def ntfy(topic:str=None, msg:str=None):
     requests.post(f"https://ntfy.sh/{topic}", data=msg.encode('utf-8'))
 
 
-def scrape_monkish_space_cookie(session:requests.session=None):
+def scrape_space_cookie(session:requests.session=None):
     """
     Detect when the Monkish Space Cookie beer is available.
     session (requests.session) : a requests session.
@@ -65,4 +65,4 @@ if __name__ == "__main__":
     dotenv.load_dotenv() # read from .env
     session = requests.Session()
     session.headers = HEADERS_FIREFOX
-    scrape_monkish_space_cookie(session)
+    scrape_space_cookie(session)
