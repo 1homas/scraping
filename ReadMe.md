@@ -9,11 +9,11 @@ pipenv shell
 pipenv install -r requirements.txt
 ```
 
-## scrape_space_cookie.py
+## space_cookie.py
 
 I wanted to be notified when [Monkish Brewing](https://www.monkishbrewing.com/) released their annual drop of their phenomenal double milkshake IPA, [Space Cookie](https://untappd.com/b/monkish-brewing-co-space-cookie/2150752). But I don't do IG so I needed another way to get the *scoop*.
 
-A cronjob runs once per day to invoke the intermediate `scrape_space_cookie.sh` which runs `scrape_space_cookie.py` after initializing its virtual environment (and `.env`) to scrape their website in search of 'Space Cookie' among the available items. Push notifications to my phone and computer are handled via the wonderful and free [ntfy.sh](https://ntfy.sh) service with the topic name specified in a `.env` file:
+A cronjob runs once per day to invoke the intermediate `space_cookie.sh` which runs `space_cookie.py` after initializing its virtual environment (and `.env`) to scrape their website in search of 'Space Cookie' among the available items. Push notifications to my phone and computer are handled via the wonderful and free [ntfy.sh](https://ntfy.sh) service with the topic name specified in a `.env` file:
 
 ```sh
 NTFY_TOPIC=your_topic_name
@@ -28,7 +28,15 @@ My crontab file for running daily at 11:05am with logging `stdout` and `stderr` 
 # │  │  │  ┌───────────── month (1 - 12)
 # │  │  │  │  ┌───────────── day of week (0 - 6) (Sunday to Saturday;
 # │  │  │  │  │
-  5 11  *  *  * /path/to/scraping/scrape_space_cookie.sh >> /path/to/scraping/crontab_log.txt 2>&1
+  5 11  *  *  * /path/to/scraping/space_cookie.sh >> /path/to/scraping/crontab_log.txt 2>&1
+# An empty line is required at the end of this file for a valid cron file!
+
 ```
 
+## selenium_hello.py
 
+A simple adaptation of Selenium's [`hello_selenium.py`](https://github.com/SeleniumHQ/seleniumhq.github.io/blob/trunk/examples/python/tests/hello/hello_selenium.py) with some random URLs to use as a starting template.
+
+## selenium_ddg.py
+
+Use Selenium to open Firefox to [DuckDuckGo](https://duckduckgo.com) and perform an Internet search for *[python web scraping](https://duckduckgo.com/?t=h_&q=python+web+scraping)*. A simple test of filling a form/field and submitting data.
