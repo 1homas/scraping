@@ -45,17 +45,16 @@ def scrape_space_cookie(session:requests.session=None):
 
     # Find All Beers with class `menu-item-title`. Example:
     #   <div class="menu-item-title">Foggy Window</div>
-    monkish_beer_url = "https://www.monkishbrewing.com/tastingroom-anaheim"
-    response = session.get(monkish_beer_url)
+    url = "https://www.monkishbrewing.com/tastingroom-anaheim"
+    response = session.get(url)
     soup = bs4.BeautifulSoup(response.text, 'html.parser') # load data into bs4
     beers = soup.find_all('div', { 'class': 'menu-item-title' })
-
+    beers = sorted(set([beer.text for beer in beers]))
     duration = f"🕐  {(time.time() - start_time):0.3f}s"
 
     # Send notification?
-    if os.getenv('NTFY_TOPIC', None) is not None:
-        msg = f'✨🍪 Space Cookie has landed! 🍻😀\nGet it at {url}\n{duration}' if 'Space Cookie' in beers else f"🙁 No Space Cookie today.\nHere's what is available:\n"+'\n'.join(sorted(set([beer.text for beer in beers])))+f"\n{duration}"
-        ntfy(os.getenv('NTFY_TOPIC'), msg)
+    msg = f'✨🍪 Space Cookie has landed! 🍻😀\nGet it at {url}\n{duration}' if 'Space Cookie' in beers else f"🙁 No Space Cookie today.\nHere's what is available:\n"+'\n'.join(beers)+f"\n{duration}"
+    ntfy('MonkishSpaceCookie', msg)
 
 
 if __name__ == "__main__":
